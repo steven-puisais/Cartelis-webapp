@@ -16,16 +16,6 @@
 					});
 					attachSignin(document.getElementById('customBtn'));
 				});
-				if (googleUser.hasGrantedScopes(SCOPE_STRING))
-			 		accessDrive();
-				else
-				{
-					googleUser.grant({
-						scope: SCOPE_STRING
-					}).then(function(googleUser){
-						accessDrive();
-					});
-				}
 			};
 
 			// check if you have access to the user's google drive, and requests permission if you don't have it
@@ -46,9 +36,14 @@
 						document.getElementById('name').innerText = "Access granted !\n Currently signed in as " +
 							googleUser.getBasicProfile().getName();
 						document.getElementById("gSignInWrapper").style.display = "none";
+						window.location.replace("http://www.w3schools.com");
 					}, function (error) {
 						alert(JSON.stringify(error, undefined, 2));
 					});
+			}
+
+			function accessDrive() {
+
 			}
 		</script>
 	</head>
