@@ -8,7 +8,7 @@
     gapi.load('auth2', function(){
       // Retrieve the singleton for the GoogleAuth library and set up the client.
       auth2 = gapi.auth2.init({
-        client_id: 'YOUR_CLIENT_ID.apps.googleusercontent.com',
+        client_id: '613313973525-ruv23jes3e7vii6brjdosld874t59vbm.apps.googleusercontent.com',
         cookiepolicy: 'single_host_origin',
         // Request scopes in addition to 'profile' and 'email'
         //scope: 'additional_scope'
@@ -42,8 +42,12 @@
     #customBtn:hover {
       cursor: pointer;
     }
+    span.label {
+      font-family: serif;
+      font-weight: normal;
+    }
     span.icon {
-      background: url('imgs/g-normal.png') transparent 5px 50% no-repeat;
+      background: url('/identity/sign-in/g-normal.png') transparent 5px 50% no-repeat;
       display: inline-block;
       vertical-align: middle;
       width: 42px;
@@ -64,10 +68,13 @@
   <body>
   <!-- In the callback, you would hide the gSignInWrapper element on a
   successful sign in -->
+  <div id="gSignInWrapper">
+    <span class="label">Sign in with:</span>
     <div id="customBtn" class="customGPlusSignIn">
       <span class="icon"></span>
       <span class="buttonText">Connect API</span>
     </div>
+  </div>
   <div id="name"></div>
   <script>startApp();</script>
 </body>
