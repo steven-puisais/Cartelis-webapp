@@ -18,12 +18,11 @@
   };
 
   function attachSignin(element) {
-    console.log(element.id);
     auth2.attachClickHandler(element, {},
         function(googleUser) {
           document.getElementById('name').innerText = "Signed in: " +
               googleUser.getBasicProfile().getName();
-          document.getElementById('gSignInWrapper').hidden = true;
+          document.getElementById("gSignInWrapper").style.display = "none";
         }, function(error) {
           alert(JSON.stringify(error, undefined, 2));
         });
