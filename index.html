@@ -17,19 +17,6 @@
 					attachSignin(document.getElementById('customBtn'));
 				});
 			};
-
-			// check if you have access to the user's google drive, and requests permission if you don't have it
-			// if (googleUser.hasGrantedScopes(SCOPE_STRING))
-			//   accessDrive();
-			// else
-			// {
-			//   googleUser.grant({
-			//     scope: SCOPE_STRING
-			//   }).then(function(googleUser){
-			//     accessDrive();
-			//   });
-			// }
-
 			function attachSignin(element) {
 				auth2.attachClickHandler(element, {},
 					function (googleUser) {

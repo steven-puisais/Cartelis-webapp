@@ -1,7 +1,6 @@
 <html>
 	<head></head>
 	<body>
-		aaaaa
 		<script src="https://apis.google.com/js/api.js"></script>
 		<script>
 			function authenticate() {
@@ -10,6 +9,7 @@
 					.then(function () { console.log("Sign-in successful"); },
 						function (err) { console.error("Error signing in", err); });
 			}
+
 			function loadClient() {
 				gapi.client.setApiKey("AIzaSyDH0SldII1P_YP1NcKwPAH_p7qDSSdQA28");
 				return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/drive/v3/rest")
