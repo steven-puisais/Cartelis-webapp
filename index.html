@@ -16,6 +16,16 @@
 					});
 					attachSignin(document.getElementById('customBtn'));
 				});
+				if (googleUser.hasGrantedScopes(SCOPE_STRING))
+			 		accessDrive();
+				else
+				{
+					googleUser.grant({
+						scope: SCOPE_STRING
+					}).then(function(googleUser){
+						accessDrive();
+					});
+				}
 			};
 
 			// check if you have access to the user's google drive, and requests permission if you don't have it
@@ -33,7 +43,7 @@
 			function attachSignin(element) {
 				auth2.attachClickHandler(element, {},
 					function (googleUser) {
-						document.getElementById('name').innerText = "Signed in: " +
+						document.getElementById('name').innerText = "Access granted !\n Currently signed in as " +
 							googleUser.getBasicProfile().getName();
 						document.getElementById("gSignInWrapper").style.display = "none";
 					}, function (error) {
