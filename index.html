@@ -36,7 +36,6 @@
 						document.getElementById('name').innerText = "Access granted !\n Currently signed in as " +
 							googleUser.getBasicProfile().getName();
 						document.getElementById("gSignInWrapper").style.display = "none";
-						window.location.replace("logged-in.html");
 					}, function (error) {
 						alert(JSON.stringify(error, undefined, 2));
 					});
