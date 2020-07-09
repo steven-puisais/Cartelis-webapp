@@ -1,11 +1,12 @@
 <html>
 	<head></head>
 	<body>
+		aaaaa
 		<script src="https://apis.google.com/js/api.js"></script>
 		<script>
 			function authenticate() {
 				return gapi.auth2.getAuthInstance()
-					.signIn({ scope: "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.metadata https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/drive.photos.readonly https://www.googleapis.com/auth/drive.readonly" })
+					.signIn({ scope: "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.metadata https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/drive.readonly" })
 					.then(function () { console.log("Sign-in successful"); },
 						function (err) { console.error("Error signing in", err); });
 			}
