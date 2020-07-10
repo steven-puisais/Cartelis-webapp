@@ -21,10 +21,7 @@
 						console.log("GAPI client loaded for API"); 
 						document.getElementById("connect_button").style.display = "none";
 						document.getElementById("dropdown_list").style.display = "inline";
-						console.log("after changing elements");
 						execute();
-						console.log("after execute");
-
 					},
 					function (err) 
 					{ 
@@ -33,13 +30,18 @@
 			}
 			// Make sure the client is loaded and sign-in is complete before calling this method.
 			function execute() {
-				console.log("in execute");
 				return gapi.client.drive.files.list({})
-					.then(function (response) {
+					.then(function (response) 
+					{
 						// Handle the results here (response.result has the parsed body).
-						console.log("Response", response);
+						response.result.files.forEach(function(entry) {
+							console.log(entry);
+						});
 					},
-						function (err) { console.error("Execute error", err); });
+					function (err) 
+					{ 
+						console.error("Execute error", err); 
+					});
 			}
 			gapi.load("client:auth2", function () {
 				gapi.auth2.init({ client_id: "613313973525-ruv23jes3e7vii6brjdosld874t59vbm.apps.googleusercontent.com" });
