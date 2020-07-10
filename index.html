@@ -47,9 +47,9 @@
 						});
 						console.log(sheets);
 						var dropdown_list = document.getElementById('dropdown_list');
-						var opt = document.createElement('option');
 						sheets.forEach(function(entry)
 						{
+							var opt = document.createElement('option');
 							opt.appendChild( document.createTextNode(entry.name) );
 							opt.value = entry.name; 
 							dropdown_list.appendChild(opt); 
