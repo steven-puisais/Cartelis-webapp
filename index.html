@@ -23,6 +23,7 @@
 			}
 			// Make sure the client is loaded and sign-in is complete before calling this method.
 			function execute() {
+				console.log("in execute");
 				return gapi.client.drive.files.list({})
 					.then(function (response) {
 						// Handle the results here (response.result has the parsed body).
