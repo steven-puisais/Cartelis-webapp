@@ -7,18 +7,21 @@
     border: thin solid #888;
     box-shadow: 1px 1px 1px grey;
     white-space: nowrap;
-  }
-  #customBtn:hover {
-    cursor: pointer;
-  }
-  span.icon {
+}
+
+#customBtn:hover {
+	cursor: pointer;
+}
+
+span.icon {
     background: url('https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png') transparent 5px 50% no-repeat;
     display: inline-block;
     vertical-align: middle;
     width: 42px;
     height: 42px;
-  }
-  span.buttonText {
+}
+
+span.buttonText {
     display: inline-block;
     vertical-align: middle;
     padding-left: 42px;
@@ -27,8 +30,8 @@
     font-weight: bold;
     /* Use the Roboto font that is loaded in the <head> */
     font-family: 'Roboto', sans-serif;
-  }
+}
 
-  #myForm {
+#myForm {
     display: none
-  }
+}

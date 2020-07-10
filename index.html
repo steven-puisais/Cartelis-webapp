@@ -7,8 +7,7 @@
 	<body>
 		<script src="https://apis.google.com/js/api.js"></script>
 		<script>
-			sheets = {}
-			dropdown_list = document.getElementById('dropdown_list');
+			var sheets = {}
 
 			function authenticate() 
 			{
@@ -37,6 +36,8 @@
 
 			function execute() 
 			{
+				
+				var dropdown_list = document.getElementById('dropdown_list');
 				return gapi.client.drive.files.list({})
 					.then(function (response) 
 					{
@@ -95,7 +96,7 @@
 			<select id="dropdown_list" name="sheets">
 			</select>
 			<br>
-			  <input id="customBtn" type="button" onclick="deduplicate()" value="Deduplicate">
+			<input id="customBtn" type="button" onclick="deduplicate()" value="Deduplicate">
 		</form>
 	</body>
 
