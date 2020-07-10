@@ -1,51 +1,40 @@
 <html>
+
 	<head>
 		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
 		<link href="style.css" rel="stylesheet" type="text/css">
-		<script src="https://apis.google.com/js/api:client.js"></script>
-		<script>
-			var googleUser = {};
-			var startApp = function () {
-				gapi.load('auth2', function () {
-					// Retrieve the singleton for the GoogleAuth library and set up the client.
-					auth2 = gapi.auth2.init({
-						client_id: '613313973525-ruv23jes3e7vii6brjdosld874t59vbm.apps.googleusercontent.com',
-						cookiepolicy: 'single_host_origin',
-						scope: 'https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.metadata https://www.googleapis.com/auth/spreadsheets'
-					});
-					attachSignin(document.getElementById('customBtn'));
-				});
-			};
-			function attachSignin(element) {
-				auth2.attachClickHandler(element, {},
-					function (googleUser) {
-						document.getElementById('name').innerText = "Access granted !\n Currently signed in as " +
-							googleUser.getBasicProfile().getName();
-						document.getElementById("gSignInWrapper").style.display = "none";
-						console.log("auth2 = " + auth2);
-					}, function (error) {
-						alert(JSON.stringify(error, undefined, 2));
-					});
-			}
-
-			// function execute() {
-			// 	return gapi.client.drive.files.list({})
-			// 		.then(function (response) {
-			// 			// Handle the results here (response.result has the parsed body).
-			// 			console.log("Response", response);
-			// 		},
-			// 			function (err) { console.error("Execute error", err); });
-			// }
-		</script>
 	</head>
 	<body>
-		<div id="gSignInWrapper">
-			<div id="customBtn" class="customGPlusSignIn">
-				<span class="icon"></span>
-				<span class="buttonText">Connect API</span>
-			</div>
-		</div>
-		<div id="name"></div>
-		<script>startApp();</script>
+		<script src="https://apis.google.com/js/api.js"></script>
+		<script>
+
+			function authenticate() {
+				return gapi.auth2.getAuthInstance()
+					.signIn({ scope: "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.metadata https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/drive.photos.readonly https://www.googleapis.com/auth/drive.readonly" })
+					.then(function () { console.log("Sign-in successful"); },
+						function (err) { console.error("Error signing in", err); });
+			}
+			function loadClient() {
+				gapi.client.setApiKey("YOUR_API_KEY");
+				return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/drive/v3/rest")
+					.then(function () { console.log("GAPI client loaded for API"); },
+						function (err) { console.error("Error loading GAPI client for API", err); });
+				execute();
+			}
+			// Make sure the client is loaded and sign-in is complete before calling this method.
+			function execute() {
+				return gapi.client.drive.files.list({})
+					.then(function (response) {
+						// Handle the results here (response.result has the parsed body).
+						console.log("Response", response);
+					},
+						function (err) { console.error("Execute error", err); });
+			}
+			gapi.load("client:auth2", function () {
+				gapi.auth2.init({ client_id: "YOUR_CLIENT_ID" });
+			});
+		</script>
+		<button onclick="authenticate().then(loadClient)">Connect API</button>
 	</body>
+
 </html>
