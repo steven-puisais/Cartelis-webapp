@@ -21,7 +21,7 @@
 					{ 
 						console.log("GAPI client loaded for API"); 
 						document.getElementById("connect_button").style.display = "none";
-						document.getElementById("dropdown_list").style.display = "inline";
+						document.getElementById("myForm").style.display = "inline";
 						execute();
 					},
 					function (err) 
@@ -60,14 +60,24 @@
 						console.error("Execute error", err); 
 					});
 			}
+
+			function deduplicate()
+			{
+				console.log("Selected sheet = ", document.getElementById('dropdown_list').selectedIndex = 0);
+			}
+
 			gapi.load("client:auth2", function () {
 				gapi.auth2.init({ client_id: "613313973525-ruv23jes3e7vii6brjdosld874t59vbm.apps.googleusercontent.com" });
 			});
 		</script>
 		<button id="connect_button" onclick="authenticate().then(loadClient)">Connect API</button>
-		<select id="dropdown_list" name="sheets">
-			<option value="none">None</option>
-		</select>
+		<form id="myForm">
+			<select id="dropdown_list" name="sheets">
+				<option value="none">None</option>
+			</select>
+			<br>
+			  <input type="button" onclick="deduplicate()" value="Deduplicate">
+		</form>
 	</body>
 
 </html>
