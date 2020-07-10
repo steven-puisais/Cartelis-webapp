@@ -22,20 +22,20 @@
 						document.getElementById('name').innerText = "Access granted !\n Currently signed in as " +
 							googleUser.getBasicProfile().getName();
 						document.getElementById("gSignInWrapper").style.display = "none";
-						execute();
+						// execute();
 					}, function (error) {
 						alert(JSON.stringify(error, undefined, 2));
 					});
 			}
 
-			function execute() {
-				return gapi.client.drive.files.list({})
-					.then(function (response) {
-						// Handle the results here (response.result has the parsed body).
-						console.log("Response", response);
-					},
-						function (err) { console.error("Execute error", err); });
-			}
+			// function execute() {
+			// 	return gapi.client.drive.files.list({})
+			// 		.then(function (response) {
+			// 			// Handle the results here (response.result has the parsed body).
+			// 			console.log("Response", response);
+			// 		},
+			// 			function (err) { console.error("Execute error", err); });
+			// }
 		</script>
 	</head>
 	<body>
