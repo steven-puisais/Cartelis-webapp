@@ -9,14 +9,18 @@
 		<script src="https://apis.google.com/js/api.js"></script>
 		<script>
 			sheets = {}
+			dropdown_list = document.getElementById('dropdown_list');
 
-			function authenticate() {
+			function authenticate() 
+			{
 				return gapi.auth2.getAuthInstance()
 					.signIn({ scope: "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive.file" })
 					.then(function () { console.log("Sign-in successful"); },
 						function (err) { console.error("Error signing in", err); });
 			}
-			function loadClient() {
+
+			function loadClient() 
+			{
 				gapi.client.setApiKey("AIzaSyDH0SldII1P_YP1NcKwPAH_p7qDSSdQA28");
 				return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/drive/v3/rest")
 					.then(function () 
@@ -31,8 +35,9 @@
 						console.error("Error loading GAPI client for API", err); 
 					});
 			}
-			// Make sure the client is loaded and sign-in is complete before calling this method.
-			function execute() {
+
+			function execute() 
+			{
 				return gapi.client.drive.files.list({})
 					.then(function (response) 
 					{
@@ -45,14 +50,12 @@
 							console.log(sheets);
 						});
 						
-						var dropdown_list = document.getElementById('dropdown_list');
-						sheets.forEach(function(entry)
-						{
+						for (var key in sheets) {
 							var option = document.createElement("option");
-							option.text = entry.name;
-							option.value = entry.name;
+							option.text = key;
+							option.value = key;
 							dropdown_list.add(option);
-						});
+						}
 					},
 					function (err) 
 					{ 
@@ -62,27 +65,33 @@
 
 			function deduplicate()
 			{
-				// var params = {
-				// 	spreadsheetId: 'my-spreadsheet-id',  // TODO: Update placeholder value.
-				// 	range: 'my-range',  // TODO: Update placeholder value.
-				// };
+				var sheet_name = document.getElementById('dropdown_list').options[document.getElementById('dropdown_list').selectedIndex].text
+				var sheet_id = sheets[sheet_name];
 
-				// var request = gapi.client.sheets.spreadsheets.values.get(params);
-				// request.then(function(response) {
-				// 	// TODO: Change code below to process the `response` object:
-				// 	console.log(response.result);
-				// }, function(reason) {
-				// 	console.error('error: ' + reason.result.error.message);
-				// });
-				console.log("Selected sheet name is = ", document.getElementById('dropdown_list').options[document.getElementById('dropdown_list').selectedIndex].text);
-				console.log("Selected sheet ID is = ", document.getElementById('dropdown_list').options[document.getElementById('dropdown_list').selectedIndex].text);
+				var params = {
+					spreadsheetId: sheet_id,
+					range: 'A',
+				};
+
+				var request = gapi.client.sheets.spreadsheets.values.get(params);
+				request.then(function(response) 
+				{
+					console.log(response.result);
+				}, 
+				function(reason) 
+				{
+					console.error('error: ' + reason.result.error.message);
+				});
 			}
 
-			gapi.load("client:auth2", function () {
+			gapi.load("client:auth2", function () 
+			{
 				gapi.auth2.init({ client_id: "613313973525-ruv23jes3e7vii6brjdosld874t59vbm.apps.googleusercontent.com" });
 			});
 		</script>
+
 		<button id="connect_button" onclick="authenticate().then(loadClient)">Connect API</button>
+
 		<form id="myForm">
 			<select id="dropdown_list" name="sheets">
 			</select>
