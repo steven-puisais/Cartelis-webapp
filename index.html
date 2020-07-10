@@ -34,9 +34,8 @@
 				return gapi.client.drive.files.list({})
 					.then(function (response) 
 					{
-						console.log(response.result.files);
-						// Handle the results here (response.result has the parsed body).
-						response.result.files.forEach(function(entry) {
+						response.result.files.forEach(function(entry) 
+						{
 							if(entry.mimeType == "application/vnd.google-apps.spreadsheet")
 							{
 								sheet = {
@@ -47,6 +46,14 @@
 							}
 						});
 						console.log(sheets);
+						var dropdown_list = document.getElementById('dropdown_list');
+						var opt = document.createElement('option');
+						sheets.forEach(function(entry)
+						{
+							opt.appendChild( document.createTextNode(entry.name) );
+							opt.value = entry.name; 
+							dropdown_list.appendChild(opt); 
+						});
 					},
 					function (err) 
 					{ 
