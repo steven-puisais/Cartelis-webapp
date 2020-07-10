@@ -49,10 +49,10 @@
 						var dropdown_list = document.getElementById('dropdown_list');
 						sheets.forEach(function(entry)
 						{
-							var opt = document.createElement('option');
-							// opt.appendChild( document.createTextNode(entry.name) );
-							opt.value = entry.name; 
-							dropdown_list.appendChild(opt); 
+							var option = document.createElement("option");
+							option.text = entry.name;
+							option.value = entry.name;
+							dropdown_list.add(option);
 						});
 					},
 					function (err) 
