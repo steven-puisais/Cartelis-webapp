@@ -8,7 +8,7 @@
 		aaaaaa
 		<script src="https://apis.google.com/js/api.js"></script>
 		<script>
-			sheets = []
+			sheets = {}
 
 			function authenticate() {
 				return gapi.auth2.getAuthInstance()
@@ -40,12 +40,9 @@
 						{
 							if(entry.mimeType == "application/vnd.google-apps.spreadsheet")
 							{
-								sheet = {
-										"id" : entry.id,
-										"name": entry.name
-										}
-								sheets.push(sheet);
+								sheets[entry.name] = entry.id;
 							}
+							console.log(sheets);
 						});
 						
 						var dropdown_list = document.getElementById('dropdown_list');
@@ -65,7 +62,20 @@
 
 			function deduplicate()
 			{
+				// var params = {
+				// 	spreadsheetId: 'my-spreadsheet-id',  // TODO: Update placeholder value.
+				// 	range: 'my-range',  // TODO: Update placeholder value.
+				// };
+
+				// var request = gapi.client.sheets.spreadsheets.values.get(params);
+				// request.then(function(response) {
+				// 	// TODO: Change code below to process the `response` object:
+				// 	console.log(response.result);
+				// }, function(reason) {
+				// 	console.error('error: ' + reason.result.error.message);
+				// });
 				console.log("Selected sheet name is = ", document.getElementById('dropdown_list').options[document.getElementById('dropdown_list').selectedIndex].text);
+				console.log("Selected sheet ID is = ", document.getElementById('dropdown_list').options[document.getElementById('dropdown_list').selectedIndex].text);
 			}
 
 			gapi.load("client:auth2", function () {
