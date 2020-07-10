@@ -5,10 +5,12 @@
 		<link href="style.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
-		aaa
+		bbb
 		<script src="https://apis.google.com/js/api.js"></script>
 		<script>
 			sheets = []
+			var dropdown_list = document.getElementById('dropdown_list');
+
 			function authenticate() {
 				return gapi.auth2.getAuthInstance()
 					.signIn({ scope: "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive.file" })
@@ -46,7 +48,6 @@
 								sheets.push(sheet);
 							}
 						});
-						var dropdown_list = document.getElementById('dropdown_list');
 						sheets.forEach(function(entry)
 						{
 							var option = document.createElement("option");
@@ -63,7 +64,7 @@
 
 			function deduplicate()
 			{
-				console.log("Selected sheet name is = ", document.getElementById('dropdown_list').selectedIndex.text);
+				console.log("Selected sheet name is = ", dropdown_list.options[dropdown_list.selectedIndex].text);
 			}
 
 			gapi.load("client:auth2", function () {
