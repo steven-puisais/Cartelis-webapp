@@ -22,15 +22,23 @@
 						document.getElementById('name').innerText = "Access granted !\n Currently signed in as " +
 							googleUser.getBasicProfile().getName();
 						document.getElementById("gSignInWrapper").style.display = "none";
-						window.location.replace("logged-in.html");
+						execute();
 					}, function (error) {
 						alert(JSON.stringify(error, undefined, 2));
 					});
 			}
 
-			function accessDrive() {
-
+			function execute() {
+				return gapi.client.drive.files.list({})
+					.then(function (response) {
+						// Handle the results here (response.result has the parsed body).
+						console.log("Response", response);
+					},
+						function (err) { console.error("Execute error", err); });
 			}
+				gapi.load("client:auth2", function () {
+				gapi.auth2.init({ client_id: "613313973525-ruv23jes3e7vii6brjdosld874t59vbm.apps.googleusercontent.com" });
+			});
 		</script>
 	</head>
 	<body>
