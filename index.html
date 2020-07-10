@@ -45,7 +45,6 @@
 								sheets.push(sheet);
 							}
 						});
-						console.log(sheets);
 						var dropdown_list = document.getElementById('dropdown_list');
 						sheets.forEach(function(entry)
 						{
@@ -63,7 +62,7 @@
 
 			function deduplicate()
 			{
-				console.log("Selected sheet = ", document.getElementById('dropdown_list').selectedIndex);
+				console.log("Selected = ", document.getElementById('dropdown_list').selectedIndex);
 			}
 
 			gapi.load("client:auth2", function () {
