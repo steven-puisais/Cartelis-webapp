@@ -7,6 +7,7 @@
 	<body>
 		<script src="https://apis.google.com/js/api.js"></script>
 		<script>
+			sheets = []
 			function authenticate() {
 				return gapi.auth2.getAuthInstance()
 					.signIn({ scope: "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive.file" })
@@ -33,10 +34,19 @@
 				return gapi.client.drive.files.list({})
 					.then(function (response) 
 					{
+						console.log(response.result.files);
 						// Handle the results here (response.result has the parsed body).
 						response.result.files.forEach(function(entry) {
-							console.log(entry.mimeType);
+							if(entry.mimeType == "application/vnd.google-apps.spreadsheet")
+							{
+								sheet = {
+										"id" : entry.id,
+										"name": entry.name
+										}
+								sheets.push(sheet);
+							}
 						});
+						console.log(sheets);
 					},
 					function (err) 
 					{ 
