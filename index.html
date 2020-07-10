@@ -10,7 +10,7 @@
 
 			function authenticate() {
 				return gapi.auth2.getAuthInstance()
-					.signIn({ scope: "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.metadata https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/drive.photos.readonly https://www.googleapis.com/auth/drive.readonly" })
+					.signIn({ scope: "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive.file" })
 					.then(function () { console.log("Sign-in successful"); },
 						function (err) { console.error("Error signing in", err); });
 			}
