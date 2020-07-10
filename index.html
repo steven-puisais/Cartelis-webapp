@@ -7,7 +7,6 @@
 	<body>
 		<script src="https://apis.google.com/js/api.js"></script>
 		<script>
-
 			function authenticate() {
 				return gapi.auth2.getAuthInstance()
 					.signIn({ scope: "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive.file" })
@@ -17,9 +16,17 @@
 			function loadClient() {
 				gapi.client.setApiKey("AIzaSyDH0SldII1P_YP1NcKwPAH_p7qDSSdQA28");
 				return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/drive/v3/rest")
-					.then(function () { console.log("GAPI client loaded for API"); },
-						function (err) { console.error("Error loading GAPI client for API", err); });
-				execute();
+					.then(function () 
+					{ 
+						console.log("GAPI client loaded for API"); 
+						document.getElementById("connect_button").style.display = "none";
+						document.getElementById("dropdown_list").style.display = "inline";
+						execute();
+					},
+					function (err) 
+					{ 
+						console.error("Error loading GAPI client for API", err); 
+					});
 			}
 			// Make sure the client is loaded and sign-in is complete before calling this method.
 			function execute() {
@@ -35,7 +42,10 @@
 				gapi.auth2.init({ client_id: "613313973525-ruv23jes3e7vii6brjdosld874t59vbm.apps.googleusercontent.com" });
 			});
 		</script>
-		<button onclick="authenticate().then(loadClient)">Connect API</button>
+		<button id="connect_button" onclick="authenticate().then(loadClient)">Connect API</button>
+		<select id="dropdown_list" name="sheets">
+			<option value="none">None</option>
+		</select>
 	</body>
 
 </html>
