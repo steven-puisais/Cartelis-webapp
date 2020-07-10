@@ -21,7 +21,10 @@
 						console.log("GAPI client loaded for API"); 
 						document.getElementById("connect_button").style.display = "none";
 						document.getElementById("dropdown_list").style.display = "inline";
+						console.log("after changing elements");
 						execute();
+						console.log("after execute");
+
 					},
 					function (err) 
 					{ 
