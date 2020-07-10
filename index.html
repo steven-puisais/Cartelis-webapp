@@ -8,7 +8,6 @@
 		<script src="https://apis.google.com/js/api.js"></script>
 		<script>
 			sheets = []
-			dropdown_list = document.getElementById('dropdown_list');
 
 			function authenticate() {
 				return gapi.auth2.getAuthInstance()
@@ -47,6 +46,8 @@
 								sheets.push(sheet);
 							}
 						});
+						
+						var dropdown_list = document.getElementById('dropdown_list');
 						sheets.forEach(function(entry)
 						{
 							var option = document.createElement("option");
@@ -63,7 +64,7 @@
 
 			function deduplicate()
 			{
-				console.log("Selected sheet name is = ", dropdown_list.options[dropdown_list.selectedIndex].text);
+				console.log("Selected sheet name is = ", document.getElementById('dropdown_list').options[document.getElementById('dropdown_list').selectedIndex].text);
 			}
 
 			gapi.load("client:auth2", function () {
