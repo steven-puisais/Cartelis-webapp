@@ -1,104 +1,19 @@
 <html>
-
 	<head>
-		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
 		<link href="style.css" rel="stylesheet" type="text/css">
+		<script src="scripts/api_loader.js" type="text/javascript"></script>
 	</head>
+
 	<body>
-		bbbbb
-		<script src="https://apis.google.com/js/api.js"></script>
-		<script>
-			var sheets = {}
-
-			function authenticate() 
-			{
-				return gapi.auth2.getAuthInstance()
-					.signIn({ scope: "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive.file" })
-					.then(function () { console.log("Sign-in successful"); },
-						function (err) { console.error("Error signing in", err); });
-			}
-
-			function loadClient() 
-			{
-				gapi.client.setApiKey("AIzaSyDH0SldII1P_YP1NcKwPAH_p7qDSSdQA28");
-				return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/drive/v3/rest")
-					.then(function () 
-					{ 
-						console.log("GAPI client loaded for API"); 
-						document.getElementById("connect_button").style.display = "none";
-						document.getElementById("myForm").style.display = "inline";
-						execute();
-					},
-					function (err) 
-					{ 
-						console.error("Error loading GAPI client for API", err); 
-					});
-			}
-
-			function execute() 
-			{
-				
-				var dropdown_list = document.getElementById('dropdown_list');
-				return gapi.client.drive.files.list({})
-					.then(function (response) 
-					{
-						response.result.files.forEach(function(entry) 
-						{
-							if(entry.mimeType == "application/vnd.google-apps.spreadsheet")
-							{
-								sheets[entry.name] = entry.id;
-							}
-							console.log(sheets);
-						});
-						
-						for (var key in sheets) {
-							var option = document.createElement("option");
-							option.text = key;
-							option.value = key;
-							dropdown_list.add(option);
-						}
-					},
-					function (err) 
-					{ 
-						console.error("Execute error", err); 
-					});
-			}
-
-			function deduplicate()
-			{
-				var sheet_name = document.getElementById('dropdown_list').options[document.getElementById('dropdown_list').selectedIndex].text
-				var sheet_id = sheets[sheet_name];
-
-				var params = {
-					spreadsheetId: sheet_id,
-					range: 'A',
-				};
-
-				var request = gapi.client.sheets.spreadsheets.values.get(params);
-				request.then(function(response) 
-				{
-					console.log(response.result);
-				}, 
-				function(reason) 
-				{
-					console.error('error: ' + reason.result.error.message);
-				});
-			}
-
-			gapi.load("client:auth2", function () 
-			{
-				gapi.auth2.init({ client_id: "613313973525-ruv23jes3e7vii6brjdosld874t59vbm.apps.googleusercontent.com" });
-			});
+		<script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
+			onreadystatechange="if (this.readyState === 'complete') this.onload()">
 		</script>
-
-		<button id="connect_button" onclick="authenticate().then(loadClient)">Connect API</button>
-
+		<button id="connect_button" onclick="handleSignInClick()">Connect API</button>
 		<form id="myForm">
 			<select id="dropdown_list" name="sheets">
 			</select>
 			<br>
-			<input id="customBtn" type="button" onclick="deduplicate()" value="Deduplicate">
+			<input id="customBtn" type="button" onclick="set_sheets()" value="Deduplicate">
 		</form>
 	</body>
-
 </html>
